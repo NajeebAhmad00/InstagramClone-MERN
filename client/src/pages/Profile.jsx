@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Box, CircularProgress, Modal } from '@mui/material'
 import Navbar from '../components/Navbar'
@@ -23,10 +23,10 @@ import {
 import {
     followUser,
     getUser,
-    unfollowUser,
     getPosts
 } from '../redux/apiCalls'
 import { logout } from '../redux/userRedux'
+import { LinkedIn, Facebook } from '@mui/icons-material'
 
 const Profile = () => {
     const location = useLocation()
@@ -78,7 +78,9 @@ const Profile = () => {
                                 {isLoading ? <CircularProgress /> : (
                                     <>
                                         {userId === currentUser._id ? (
-                                            <Button white>Edit profile</Button>
+                                            <Link to='/editprofile'>
+                                                <Button white>Edit profile</Button>
+                                            </Link>
                                         ) : (
                                             (currentUser.following?.includes(oneUser._id) || oneUser.followers?.find(user => user._id === currentUser._id)) ? (
                                                 <Button white onClick={handleFollow}>Unfollow</Button>
@@ -104,6 +106,18 @@ const Profile = () => {
                             </InfoContainer>
                             <InfoContainer marginTop column>
                                 <Span name>{oneUser.fullName}</Span>
+                                <Text>
+                                    {oneUser.linkedIn && oneUser.linkedIn !== '' && (
+                                        <a className='link' href={oneUser.linkedIn} target='_blank'>
+                                            <LinkedIn className='icon' />
+                                        </a>
+                                    )}
+                                    {oneUser.facebook && oneUser.facebook !== '' && (
+                                        <a className='link' href={oneUser.facebook} target='_blank'>
+                                            <Facebook className='icon' />
+                                        </a>
+                                    )}
+                                </Text>
                                 {oneUser.bio && (
                                     <Text>
                                         {oneUser.bio}

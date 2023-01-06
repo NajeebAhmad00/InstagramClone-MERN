@@ -9,6 +9,7 @@ const Feed = lazy(() => import('./pages/Feed'))
 const Profile = lazy(() => import('./pages/Profile'))
 const Confirm = lazy(() => import('./pages/Confirm'))
 const Search = lazy(() => import('./pages/Search'))
+const EditProfile = lazy(() => import('./pages/EditProfile'))
 
 const App = () => {
   const { currentUser } = useSelector(state => state.user)
@@ -38,6 +39,9 @@ const App = () => {
           } />
           <Route path='/search' element={
             currentUser?.isActive ? <Search /> : <Navigate to='/' />
+          } />
+          <Route path='/editprofile' element={
+            currentUser?.isActive ? <EditProfile /> : <Navigate to='/' />
           } />
         </Routes>
       </Suspense>
