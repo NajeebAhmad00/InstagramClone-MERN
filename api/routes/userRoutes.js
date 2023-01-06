@@ -129,38 +129,29 @@ router.put('/:id/follow', verifyToken, async (req, res) => {
             const currentUser = await User.findById(req.body.userId)
 
             if (!user.followers.includes(req.body.userId)) {
-                const followedUser = await user.updateOne({ $push: { followers: req.body.userId } })
+                await user.updateOne({ $push: { followers: req.body.userId } })
                 await currentUser.updateOne({ $push: { following: req.params.id } })
-                res.status(200).json(followedUser)
             } else {
-                res.json('You already follow this user')
+                await user.updateOne({ $pull: { followers: req.body.userId } })
+                await currentUser.updateOne({ $pull: { following: req.params.id } })
             }
+
+            const { followers } = await User.findById(req.params.id).populate({
+                path: 'followers',
+                select: '_id username profileImg isCelebrity'
+            })
+            const { following } = await User.findById(req.body.userId).populate({
+                path: 'following',
+                select: '_id username profileImg isCelebrity'
+            })
+            res.status(200).json({
+                followers, following
+            })
         } catch (err) {
             res.json(err)
         }
     } else {
         res.status(403).json("You can't follow yourself")
-    }
-})
-
-// UNFOLLOW A USER
-router.put('/:id/unfollow', verifyToken, async (req, res) => {
-    if (req.body.userId !== req.params.id) {
-        try {
-            const user = await User.findById(req.params.id);
-            const currentUser = await User.findById(req.body.userId);
-            if (user.followers.includes(req.body.userId)) {
-                const unfollowedUser = await user.updateOne({ $pull: { followers: req.body.userId } });
-                await currentUser.updateOne({ $pull: { following: req.params.id } })
-                res.status(200).json(unfollowedUser)
-            } else {
-                res.json('You dont follow this user')
-            }
-        } catch (err) {
-            res.json(err)
-        }
-    } else {
-        res.status(403).json('You cant unfollow yourself')
     }
 })
 

@@ -89,29 +89,12 @@ const userSlice = createSlice({
             state.isLoading = true
             state.error = false
         },
-        followUserSuccess: (state) => {
+        followUserSuccess: (state, action) => {
             state.isLoading = false
-            state.currentUser.following.push(state.oneUser._id)
-            state.oneUser.followers.push(state.currentUser._id)
+            state.currentUser.following = action.payload.following
+            state.oneUser.followers = action.payload.followers
         },
         followUserFailure: (state, action) => {
-            state.isLoading = false
-            state.error = action.payload
-        },
-        unfollowUserStart: (state) => {
-            state.isLoading = true
-            state.error = false
-        },
-        unfollowUserSuccess: (state) => {
-            state.isLoading = false
-            state.currentUser.following.splice(
-                state.currentUser.following.findIndex(user => user._id === state.oneUser._id), 1
-            )
-            state.oneUser.followers.splice(
-                state.oneUser.followers.findIndex(user => user._id === state.currentUser._id), 1
-            )
-        },
-        unfollowUserFailure: (state, action) => {
             state.isLoading = false
             state.error = action.payload
         }
@@ -137,9 +120,6 @@ export const {
     getUserFailue,
     followUserStart,
     followUserSuccess,
-    followUserFailure,
-    unfollowUserStart,
-    unfollowUserSuccess,
-    unfollowUserFailure
+    followUserFailure
 } = userSlice.actions
 export default userSlice.reducer

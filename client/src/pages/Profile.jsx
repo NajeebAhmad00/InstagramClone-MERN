@@ -60,14 +60,6 @@ const Profile = () => {
         followUser(dispatch, id, { userId })
     }
 
-    const handleUnfollow = (e) => {
-        e.preventDefault()
-
-        const id = oneUser._id
-        const userId = currentUser._id
-        unfollowUser(dispatch, id, { userId })
-    }
-
     return (
         <>
             <Navbar />
@@ -89,7 +81,7 @@ const Profile = () => {
                                             <Button white>Edit profile</Button>
                                         ) : (
                                             (currentUser.following?.includes(oneUser._id) || oneUser.followers?.find(user => user._id === currentUser._id)) ? (
-                                                <Button white onClick={handleUnfollow}>Unfollow</Button>
+                                                <Button white onClick={handleFollow}>Unfollow</Button>
                                             ) : (
                                                 <Button onClick={handleFollow}>Follow</Button>
                                             )
@@ -98,7 +90,7 @@ const Profile = () => {
                                 )}
                             </InfoContainer>
                             <InfoContainer marginTop>
-                                <Text><Span>120</Span> posts</Text>
+                                <Text><Span>{posts.length}</Span> posts</Text>
                                 <Text pointer onClick={() => {
                                     setOpen(true)
                                     setModalData(oneUser.followers)

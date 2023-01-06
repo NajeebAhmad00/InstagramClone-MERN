@@ -17,10 +17,7 @@ import {
     getUserFailue,
     followUserStart,
     followUserSuccess,
-    followUserFailure,
-    unfollowUserStart,
-    unfollowUserSuccess,
-    unfollowUserFailure
+    followUserFailure
 } from './userRedux'
 import {
     getPostsStart,
@@ -104,17 +101,6 @@ export const followUser = async (dispatch, id, userId) => {
         dispatch(followUserSuccess(data))
     } catch (er) {
         dispatch(followUserFailure(err))
-    }
-}
-
-export const unfollowUser = async (dispatch, id, userId) => {
-    dispatch(unfollowUserStart())
-
-    try {
-        const { data } = await userRequest.put(`/users/${id}/unfollow`, userId)
-        dispatch(unfollowUserSuccess(data))
-    } catch (err) {
-        dispatch(unfollowUserFailure(err))
     }
 }
 
