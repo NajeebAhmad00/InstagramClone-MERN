@@ -2,12 +2,12 @@ import { initializeApp } from 'firebase/app'
 import { getStorage } from 'firebase/storage'
 
 const firebaseConfig = {
-    apiKey: 'AIzaSyA3Cwz8mthSWr-pszg-OjDeA4ZoS5lwsNI',
-    authDomain: 'instagramclone-b5577.firebaseapp.com',
-    projectId: 'instagramclone-b5577',
-    storageBucket: 'instagramclone-b5577.appspot.com',
-    messagingSenderId: '448960473916',
-    appId: '1:448960473916:web:dbc9253218a2ab7ee70c39'
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID
 }
 
 const app = initializeApp(firebaseConfig)
