@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import { Box as MUIBox, CircularProgress } from '@mui/material'
 import {
     Container,
     Section,
@@ -18,7 +19,7 @@ const Login = () => {
     const dispatch = useDispatch()
     const email = useRef()
     const password = useRef()
-    const { error } = useSelector(state => state.user)
+    const { isFetching, error } = useSelector(state => state.user)
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -46,8 +47,12 @@ const Login = () => {
                             <Err>Username or password is incorrect</Err>
                         )}
 
-                        <Button style={{ marginLeft: '35px' }} type='submit'>Log in</Button>
-                        <Text pass>Forgot password?</Text>
+                        {isFetching && (<MUIBox style={{ display: 'flex', justifyContent: 'center', margin: '0 0 10px 0' }}>
+                            <CircularProgress />
+                        </MUIBox>)}
+
+                        <Button style={{ margin: '0 0 30px 35px ' }} type='submit'>Log in</Button>
+                        {/* <Text pass onClick={() => alert('Feature not available yet')}>Forgot password?</Text> */}
                     </form>
                 </Box>
 

@@ -26,8 +26,10 @@ const Feed = () => {
                 {isFetching ? <Box style={{ display: 'flex', justifyContent: 'center' }}>
                     <CircularProgress />
                 </Box> : error ? (
-                    <h2>Error</h2>
-                ) : posts.length === 0 || posts.message === 'No users to follow' ? <h2>Follow some users to view posts here</h2> : <>
+                    <h2 className='notice'>Error</h2>
+                ) : posts.length === 0 || posts.message === 'No users to follow' ? <h2 className='notice'>
+                    Follow some users to view posts here or maybe people you follow haven't posted anything yet
+                </h2> : <>
                     {posts.map(post => (
                         <Post key={post._id} post={post} />
                     ))}

@@ -107,6 +107,20 @@ body {
   margin-top: 10px;
 }
 
+.close-button {
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer !important;
+  font-size: 1.8rem !important;
+}
+
+.notice {
+  font-weight: 400;
+  text-align: center;
+  padding: 30px;
+}
+
 @media(max-width: 768px) {
   .left {
     display: none;

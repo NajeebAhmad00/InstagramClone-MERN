@@ -56,7 +56,7 @@ router.post('/login', async (req, res) => {
 })
 
 // UPDATE USER
-router.put('/:id', async (req, res) => {
+router.put('/:id', verifyTokenAndAuthorization, async (req, res) => {
     if (req.body.password) {
         req.body.password = CryptoJS.AES.encrypt(req.body.password, process.env.PASS_SEC).toString()
     }
@@ -82,7 +82,7 @@ router.delete('/:id', verifyTokenAndAuthorization, async (req, res) => {
 })
 
 // GET ALL USERS
-router.get('/find', async (req, res) => {
+router.get('/find', verifyToken, async (req, res) => {
     try {
         const users = await User.find()
         let usersList = []
@@ -104,7 +104,7 @@ router.get('/find', async (req, res) => {
 })
 
 // GET A USER
-router.get('/find/:id', async (req, res) => {
+router.get('/find/:id', verifyToken, async (req, res) => {
     try {
         const user = await User.findById(req.params.id).populate({
             path: 'followers',
@@ -122,7 +122,7 @@ router.get('/find/:id', async (req, res) => {
 })
 
 // FOLLOW A USER
-router.put('/:id/follow', async (req, res) => {
+router.put('/:id/follow', verifyToken, async (req, res) => {
     if (req.body.userId !== req.params.id) {
         try {
             const user = await User.findById(req.params.id)

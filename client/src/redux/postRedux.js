@@ -45,6 +45,10 @@ const postSlice = createSlice({
         likeSuccess: (state, action) => {
             state.loadingLike = false
             state.post.likes = action.payload.likes
+            const post = state.posts.find(post => post._id === action.payload._id)
+            if (post !== -1) {
+                post.likes = action.payload.likes
+            }
         },
         likeFailure: (state, action) => {
             state.loadingLike = false

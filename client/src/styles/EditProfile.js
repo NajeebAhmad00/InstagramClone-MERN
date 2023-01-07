@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { mobile } from '../responsive'
 
 export const Container = styled.section`
     width: 70%;
@@ -17,6 +18,7 @@ export const Container = styled.section`
 export const Box = styled.div`
     display: flex;
     position: relative;
+    ${mobile({ flexDirection: 'column' })};
 `
 
 export const ProfileImage = styled.div`
@@ -31,6 +33,7 @@ export const Right = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    ${mobile({ margin: '0' })};
 `
 
 export const Label = styled.label`
@@ -38,6 +41,7 @@ export const Label = styled.label`
     font-weight: 600;
     position: absolute;
     left: -4rem;
+    ${mobile({ position: 'relative', left: '0' })}
 `
 
 export const Input = styled.input`
@@ -46,11 +50,13 @@ export const Input = styled.input`
     width: 20rem;
     padding: 1rem 0.5rem;
     border-radius: 0.2rem;
+    ${mobile({ width: '200px' })};
 `
 
 export const Text = styled.p`
     color: #8E8E8E;
     width: 20rem;
+    ${mobile({ width: '200px' })};
 `
 
 export const Textarea = styled.textarea`
@@ -64,6 +70,14 @@ export const Textarea = styled.textarea`
     padding: 1rem 0.5rem;
     border-radius: 0.2rem;
     font-family: 'Segoe UI', sans-serif;
+    ${mobile({
+    width: '200px',
+    maxWidth: '200px',
+    minWidth: '200px',
+    maxHeight: '100px',
+    minHeight: '200px',
+    height: '200px'
+})};
 `
 
 export const Button = styled.button`

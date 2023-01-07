@@ -72,11 +72,16 @@ const AddPost = () => {
                             {currentUser.isCelebrity && <BlueTick src='/images/bluetick.PNG' />}
                         </div>
                         <TextArea placeholder='Write a caption... (optional)' ref={caption} />
-                        {loading ? (
-                            <MUIBox style={{ display: 'flex', justifyContent: 'center' }}>
+                        {loading ? <>
+                            <MUIBox style={{ display: 'flex', justifyContent: 'center', marginTop: -40 }}>
                                 <CircularProgress />
                             </MUIBox>
-                        ) : <Button style={{ marginBottom: '10px' }} onClick={handleClick}>Share</Button>}
+                            <span style={{ color: '#5791E8', fontSize: '0.8rem' }}>
+                                If you're posting from a mobile devie, it might take time, specially if you're changing/editing profile picture. Please be patient
+                            </span>
+                        </> : <>
+                            <Button style={{ marginBottom: '10px' }} onClick={handleClick}>Share</Button>
+                        </>}
                     </Box>
                 </Container>
             </> : (

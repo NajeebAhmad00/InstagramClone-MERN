@@ -16,10 +16,12 @@ import {
     Span
 } from '../styles/Post'
 import { CircularProgress, Modal } from '@mui/material'
+import { Close } from '@mui/icons-material'
 import PostModal from './PostModal'
 import UserModal from './UserModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { addComments, likePosts } from '../redux/apiCalls'
+import { BlueTick } from '../styles/Profile'
 
 const Post = ({ post }) => {
     const dispatch = useDispatch()
@@ -29,7 +31,7 @@ const Post = ({ post }) => {
     const [userModal, setUserModal] = useState(false)
 
     const { currentUser } = useSelector(state => state.user)
-    const { loadingLike } = useSelector(state => state.post)
+    const { loadingLike, loadingComment } = useSelector(state => state.post)
 
     const handleClose = () => {
         setOpen(false)
@@ -73,6 +75,7 @@ const Post = ({ post }) => {
                 <Link className='link' to={`/profile/${post.author?._id}`}>
                     <ProfileName>{post.author?.username}</ProfileName>
                 </Link>
+                {post.author?.isCelebrity && <BlueTick feed src='/images/bluetick.PNG' />}
                 {/* <PostTopR>
                     <i className='fa-solid fa-ellipsis' style={{ fontSize: '1.6rem' }}></i>
                 </PostTopR> */}
@@ -107,25 +110,28 @@ const Post = ({ post }) => {
                         setOpen(true)
                         setWidth('70%')
                     }}>
-                        {post.comment?.length === 0 ? 'No comments yet' : `View all ${post.comments?.length} comments`}
+                        {post.comments?.length === 0 ? 'No comments yet' : `View all ${post.comments?.length} comments`}
                     </Text>
                     <Text date gray>{post.createdAt.toString().substr(0, 10)}</Text>
                 </Wrapper>
             </PostCenter>
 
             <PostBottom>
+                {loadingComment && <CircularProgress />}
                 <Input ref={comment} type='text' placeholder='Add a comment...' />
                 <Span onClick={handleComment}>Post</Span>
             </PostBottom>
 
             <Modal open={open} onClose={handleClose}>
                 <Box className='post-modal'>
+                    <Close className='close-button' onClick={handleClose} />
                     <PostModal postId={post._id} />
                 </Box>
             </Modal>
 
             <Modal open={userModal} onClose={handleModalClose}>
                 <Box className='user-modal'>
+                    <Close className='close-button' onClick={handleModalClose} />
                     <UserModal data={post.likes} dataType='Likes' />
                 </Box>
             </Modal>

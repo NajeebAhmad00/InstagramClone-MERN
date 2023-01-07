@@ -22,8 +22,10 @@ app.use('/api/users', userRoutes)
 app.use('/api/posts', postRoutes)
 app.use('/api/mails', mailRoutes)
 
-// app.use(express.static(path.join(__dirname, '/client/build')))
-// app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/client/build', 'index.html')))
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '/client/build')))
+    app.get('*', (req, res) => res.sendFile(path.join(__dirname, '/client/build', 'index.html')))
+}
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('Server is running...')

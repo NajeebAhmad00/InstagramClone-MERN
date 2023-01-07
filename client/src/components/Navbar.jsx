@@ -45,7 +45,7 @@ const Navbar = () => {
                         </Link>
                     </ListItem>
                     <ListItem><AddCircleOutlineOutlined className='icon' onClick={() => setOpen(true)} /></ListItem>
-                    <ListItem><FavoriteBorder className='icon' /></ListItem>
+                    {/* <ListItem><FavoriteBorder className='icon' /></ListItem> */}
                     <ListItem>
                         <Link to={`/profile/${currentUser._id}`}>
                             <ProfileLogo big img={currentUser.profileImg ? currentUser.profileImg : '/images/avatar.png'} />
@@ -55,14 +55,16 @@ const Navbar = () => {
             </Nav>
             <SecondNav>
                 <Item>
-                    <HomeOutlined className='icon' />
+                    <Link to='/feed' className='link'>
+                        <HomeOutlined className='icon' />
+                    </Link>
                 </Item>
                 <Item>
                     <AddCircleOutlineOutlined className='icon' onClick={() => setOpen(true)} />
                 </Item>
-                <Item>
+                {/* <Item>
                     <FavoriteBorder className='icon' />
-                </Item>
+                </Item> */}
                 <Item>
                     <Link to={`/profile/${currentUser._id}`}>
                         <ProfileLogo img={currentUser.profileImg ? currentUser.profileImg : '/images/avatar.png'} />

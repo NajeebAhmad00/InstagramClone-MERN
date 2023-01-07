@@ -26,7 +26,7 @@ import {
     getPosts
 } from '../redux/apiCalls'
 import { logout } from '../redux/userRedux'
-import { LinkedIn, Facebook } from '@mui/icons-material'
+import { LinkedIn, Facebook, Close } from '@mui/icons-material'
 
 const Profile = () => {
     const location = useLocation()
@@ -154,12 +154,14 @@ const Profile = () => {
             )}
             <Modal open={open} onClose={handleClose}>
                 <Box className='user-modal'>
+                    <Close className='close-button' onClick={handleClose} />
                     <UserModal data={modalData} dataType={dataType} />
                 </Box>
             </Modal>
 
             <Modal open={postModal} onClose={handlePostClose}>
                 <Box className='post-modal'>
+                    <Close className='close-button' onClick={handlePostClose} />
                     <PostModal postId={postId} feed />
                 </Box>
             </Modal>

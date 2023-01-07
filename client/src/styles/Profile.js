@@ -100,5 +100,5 @@ export const ImageBox = styled.div`
 
 export const BlueTick = styled.img`
     height: 20px;
-    margin: ${props => props.search ? '0' : '15px 0 0 -10px;'};
+    margin: ${props => props.search ? '0' : props.feed ? '0 0 0 10px' : '15px 0 0 -10px'};
 `

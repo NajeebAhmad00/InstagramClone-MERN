@@ -20,7 +20,8 @@ export const Box = styled.div`
 
 export const Image = styled.img`
     width: 100%;
-    ${mobile({ flex: '40%' })};
+    object-fit: contain;
+    ${mobile({ flex: '40%', maxHeight: '300px' })};
 `
 
 export const PostTop = styled.div`
@@ -37,7 +38,7 @@ export const PostCenter = styled.div`
     border-bottom: 1px solid #dbdbdb;
     overflow-y: scroll;
     padding: 10px 20px 0 20px;
-    ${mobile({ padding: '0 5px 5px 5px', flex: '40%' })}
+    ${mobile({ padding: '0 5px 5px 5px', flex: '40%', minHeight: '180px', maxHeight: '180px' })};
 `
 
 export const PostBottom = styled.div`

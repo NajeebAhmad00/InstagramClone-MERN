@@ -26,6 +26,7 @@ import {
     Span
 } from '../styles/Post'
 import { Box as MUIBox, CircularProgress } from '@mui/material'
+import { Close } from '@mui/icons-material'
 import {
     addComment,
     getPost,
@@ -39,7 +40,7 @@ const PostModal = ({ postId }) => {
     const comment = useRef()
     const [open, setOpen] = useState(false)
     const { currentUser } = useSelector(state => state.user)
-    const { isLoading, post, error, loadingLike } = useSelector(state => state.post)
+    const { isLoading, post, error, loadingLike, loadingComment } = useSelector(state => state.post)
 
     const handleClose = () => setOpen(false)
 
@@ -125,7 +126,9 @@ const PostModal = ({ postId }) => {
                                 </CommentBox>
                             </CommentBox>
                         )}
-                        {post.comments?.length === 0 ? <h2>No comments yet</h2> : <>
+                        {post.comments?.length === 0 ? <h2 className='notice'>
+                            No comments yet
+                        </h2> : <>
                             {post?.comments?.map(comment => (
                                 <CommentBox comment key={comment._id}>
                                     <Link
@@ -156,7 +159,7 @@ const PostModal = ({ postId }) => {
                                             <span style={{ color: '#8e8e8e' }}>
                                                 {comment.createdAt.toString().substr(0, 10)}
                                             </span>
-                                            {comment.author?._id === currentUser._id && (
+                                            {comment.author?._id === currentUser._id && <>
                                                 <span
                                                     style={{
                                                         color: 'red',
@@ -165,7 +168,8 @@ const PostModal = ({ postId }) => {
                                                     }}
                                                     onClick={() => handleDelete(comment._id)}
                                                 >Delete comment</span>
-                                            )}
+                                                {(comment.author?._id === currentUser._id && loadingComment) && <CircularProgress />}
+                                            </>}
                                         </div>
                                     </InnerBox>
                                 </CommentBox>
@@ -204,6 +208,7 @@ const PostModal = ({ postId }) => {
 
                         <Bottom>
                             <Input ref={comment} type='text' placeholder='Add a comment...' />
+                            {loadingComment && <CircularProgress />}
                             <Span onClick={handleComment}>Post</Span>
                         </Bottom>
                     </PostBottom>
@@ -212,6 +217,7 @@ const PostModal = ({ postId }) => {
 
             <Modal open={open} onClose={handleClose}>
                 <ModalBox className='user-modal'>
+                    <Close className='close-button' onClick={handleClose} />
                     <UserModal data={post.likes} dataType='Likes' />
                 </ModalBox>
             </Modal>

@@ -145,14 +145,16 @@ const EditProfile = () => {
                 <Box>
                     <Label>Facebook</Label>
                     <Right>
-                        <Input ref={facebook} defaultValue={currentUser.linkedIn} />
+                        <Input ref={facebook} defaultValue={currentUser.facebook} />
                     </Right>
                 </Box>
 
-                <p style={{ color: 'red', fontSize: '1rem', textAlign: 'center' }}>
-                    If the profile doesn't get updated, logout and then log in again and then edit your profile. Since your last log in gets expired.
-                </p>
-                {loading && <CircularProgress />}
+                {loading && <>
+                    <span style={{ color: '#5791E8', fontSize: '1rem' }}>
+                        If you're editing profile from a mobile devie, it might take time. Please be patient
+                    </span>
+                    <CircularProgress />
+                </>}
                 <Button onClick={handleUpdate}>Submit</Button>
             </Container>
 
