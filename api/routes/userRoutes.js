@@ -82,7 +82,7 @@ router.delete('/:id', verifyTokenAndAuthorization, async (req, res) => {
 })
 
 // GET ALL USERS
-router.get('/find', verifyToken, async (req, res) => {
+router.get('/find', async (req, res) => {
     try {
         const users = await User.find()
         let usersList = []
@@ -122,7 +122,7 @@ router.get('/find/:id', async (req, res) => {
 })
 
 // FOLLOW A USER
-router.put('/:id/follow', verifyToken, async (req, res) => {
+router.put('/:id/follow', async (req, res) => {
     if (req.body.userId !== req.params.id) {
         try {
             const user = await User.findById(req.params.id)

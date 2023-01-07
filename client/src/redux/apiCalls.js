@@ -2,7 +2,6 @@ import {
     loginStart,
     loginSuccess,
     loginFailure,
-    logout,
     registerStart,
     registerSuccess,
     registerFailure,
@@ -34,7 +33,16 @@ import {
     addCommentFailure,
     deleteCommentStart,
     deleteCommentSuccess,
-    deleteCommentFailure
+    deleteCommentFailure,
+    getFeedStart,
+    getFeedSuccess,
+    getFeedFailure,
+    likePostsStart,
+    likePostsSuccess,
+    likePostsFailure,
+    addCommentsStart,
+    addCommentsSuccess,
+    addCommentsFailure
 } from './postRedux'
 import { publicRequest, userRequest } from '../requestMethods'
 
@@ -156,5 +164,38 @@ export const deleteComment = async (dispatch, postId, commentId, user) => {
         dispatch(deleteCommentSuccess(data))
     } catch (err) {
         deleteCommentFailure(err)
+    }
+}
+
+export const getFeed = async (dispatch, id) => {
+    dispatch(getFeedStart())
+
+    try {
+        const { data } = await publicRequest.get(`/posts/feed/${id}`)
+        dispatch(getFeedSuccess(data))
+    } catch (err) {
+        dispatch(getFeedFailure(err))
+    }
+}
+
+export const likePosts = async (dispatch, id, user) => {
+    dispatch(likePostsStart())
+
+    try {
+        const { data } = await userRequest.put(`/posts/${id}/like`, user)
+        dispatch(likePostsSuccess(data))
+    } catch (err) {
+        dispatch(likePostsFailure(err))
+    }
+}
+
+export const addComments = async (dispatch, postId, comment) => {
+    dispatch(addCommentsStart())
+
+    try {
+        const { data } = await userRequest.post(`/posts/${postId}/comments`, comment)
+        dispatch(addCommentsSuccess(data))
+    } catch (err) {
+        dispatch(addCommentsFailure(err))
     }
 }

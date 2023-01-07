@@ -92,7 +92,7 @@ const Profile = () => {
                                 )}
                             </InfoContainer>
                             <InfoContainer marginTop>
-                                <Text><Span>{posts.length}</Span> posts</Text>
+                                <Text><Span>{posts?.length}</Span> posts</Text>
                                 <Text pointer onClick={() => {
                                     setOpen(true)
                                     setModalData(oneUser.followers)
@@ -135,7 +135,7 @@ const Profile = () => {
                                 <CircularProgress />
                             </Box>
                         ) : error ? <h2>Something went wrong</h2> : <>
-                            {posts.length === 0 ? <h2 style={{ textAlign: 'center' }}>No posts</h2> : <>
+                            {posts.length === 0 || posts.message === 'No users to follow' ? <h2 style={{ textAlign: 'center' }}>No posts</h2> : <>
                                 {posts.map(post => (
                                     <Image onClick={() => {
                                         setPostModal(true)
@@ -160,7 +160,7 @@ const Profile = () => {
 
             <Modal open={postModal} onClose={handlePostClose}>
                 <Box className='post-modal'>
-                    <PostModal postId={postId} />
+                    <PostModal postId={postId} feed />
                 </Box>
             </Modal>
         </>

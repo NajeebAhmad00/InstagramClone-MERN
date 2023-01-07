@@ -5,6 +5,7 @@ export const Flex = styled.div`
     display: flex;
     height: 100%;
     overflow: hidden;
+    width: 100%;
     ${mobile({ flexDirection: 'column' })};
 `
 

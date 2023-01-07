@@ -4,7 +4,7 @@ import { mobile } from '../responsive'
 export const Box = styled.div`
     background: #fff;
     border: 1px solid #dbdbdb;
-    width: 40%;
+    width: ${props => props.width};
     border-radius: 7px;
     margin-bottom: 20px;
     ${mobile({ width: '90%' })}
