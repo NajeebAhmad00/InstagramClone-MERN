@@ -14,7 +14,7 @@ let transporter = nodemailer.createTransport(smtpTransport({
 
 router.post('/client', (req, res) => {
     transporter.sendMail({
-        from: 'instgrmcln@gmail.com',
+        from: process.env.GMAIL_ID,
         to: req.body.email,
         subject: 'Confirmation code for Instagram Clone',
         html: `<p>The confirmation code for your account is: <span style="color: #5662F6;">${req.body.code}</span></p>`
