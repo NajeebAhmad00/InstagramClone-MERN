@@ -1,4 +1,5 @@
 #Instagram Clone
+
 A fully-featured Instagram clone built using the MERN stack (MongoDB, Express, React, Node.js), Redux, and Firebase for storing images. Features include:
 - Follow/unfollow users
 - Real-time updates to the feed page based on follow/unfollow actions
